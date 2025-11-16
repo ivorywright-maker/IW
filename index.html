@@ -9,29 +9,58 @@
     margin: 0;
     padding: 0;
     height: 100%;
-  }
-
-  .fullscreen-container {
     width: 100%;
-    height: 100vh;
     overflow: hidden;
+    background: #000;
   }
 
+  /* Mobile-safe fullscreen container */
+  .fullscreen-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+
+    /* Respect iPhone/Android safe areas */
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+
+    box-sizing: border-box;
+  }
+
+  /* The iframe itself */
   .fullscreen-iframe {
     width: 100%;
     height: 100%;
     border: none;
+    display: block;
+  }
+
+  /* Fixes Android overscroll bounce */
+  body, iframe {
+    overscroll-behavior: none;
+  }
+
+  /* Adjust for weird tall/narrow phones */
+  @media (max-aspect-ratio: 9/20) {
+    .fullscreen-wrapper {
+      height: 100%;
+    }
   }
 </style>
 
-<div class="fullscreen-container">
+<div class="fullscreen-wrapper">
   <iframe
     class="fullscreen-iframe"
     src="https://claude.site/public/artifacts/816356f4-1a77-4d0c-aa4a-c14333d0aff4/embed"
-    title="Claude Artifact"
     allow="clipboard-write"
-    allowfullscreen>
-  </iframe>
+    allowfullscreen
+  ></iframe>
+</div>
+
 </div>
 
 
